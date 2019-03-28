@@ -1,0 +1,30 @@
+﻿@model Languages.Models.Review
+@{
+    ViewData["Title"] = "Languages";
+}
+<div>
+    <h3>Cognitive language recognition feature</h3>
+    <br />
+
+    <div class="form-group">
+        <h4>Review</h4>
+        @Html.TextAreaFor(model => model.Description, new { id = "input", @class = "form-control", style = "width: 400px; height: 100px;", placeholder = "Please leave feedback in any language..." })
+        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "help-inline", style = "color: red;" })
+    </div>
+
+    <div class="form-group" id="rData">
+        &nbsp;
+    </div>
+
+    <button class="btn btn-outline-primary" onclick="send();"> Send </button>
+
+</div>
+
+<script type="text/javascript">
+    function send() {
+        $.get('@Url.Action("Send","Home")', { Description: $("#input").val()}, function (data) {
+            $("#rData").html(data);
+        });
+    }
+</script>
+
